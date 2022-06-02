@@ -27,6 +27,8 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+  - job: Verify
+    steps: 
     - task: ContrastIntegration@2
       inputs:
         ContrastService: 'Contrast AppTwo'
