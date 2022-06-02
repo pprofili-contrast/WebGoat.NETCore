@@ -36,7 +36,7 @@ stages:
       inputs:
         ContrastService: 'Contrast AppTwo'
         Application: '53c9d540-2cee-40a0-8a57-0552f8b917de'
-        AppVersionFilter: '12'
+        AppVersionFilter: '$(Build.BuildId)'
         CriticalLimit: '0'
         HighLimit: '0'
         MediumLimit: '-1'
