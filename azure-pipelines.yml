@@ -28,6 +28,7 @@ stages:
         tags: |
           $(tag)
   - job: Verify
+    pool: server
     steps: 
     - task: ContrastIntegration@2
       inputs:
