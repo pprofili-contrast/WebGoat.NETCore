@@ -1,0 +1,33 @@
+# Start Build Stage
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build
+WORKDIR ./sources
+
+# Copy everything, add the Contrast agent package and build the app
+COPY WebGoatCore/. ./sources/WebGoatCore/
+WORKDIR ./sources/WebGoatCore
+RUN dotnet add package Contrast.SensorsNetCore
+RUN dotnet restore
+RUN dotnet publish -c release -o /app
+# END Build Stage
+
+# START Final Stage
+FROM mcr.microsoft.com/dotnet/core/aspnet:5.0 AS final
+WORKDIR /app
+
+#Copy the application over from the build stage
+COPY --from=build /app ./
+
+#Set Environment Variables for the agent
+ENV CORECLR_PROFILER_PATH_64=/app/contrast/runtimes/linux-x64/native/ContrastProfiler.so
+ENV CORECLR_PROFILER={8B2CE134-0948-48CA-A4B2-80DDAD9F5791}
+ENV CORECLR_ENABLE_PROFILING=1
+ENV CONTRAST__APPLICATION__NAME=WebGoat.NETCoreDocker
+ENV CONTRAST__SERVER__NAME=DockeronRHEl7
+ENV CONTRAST__API__URL=https://apptwo.contrastsecurity.com/Contrast/
+ENV CONTRAST__API__API_KEY=VTCzH6KdQUk73e6tWKz1ao4uM5tW7F2o
+ENV CONTRAST__API__SERVICE_KEY=VLIEPH7Q6JHV9SLH
+ENV CONTRAST__API__USER_NAME=agent_92a740a5-6503-4310-925d-3436134825d0@Reddwarf
+ENV CONTRAST__APPLICATION__VERSION=$(Build.BuildId)_$(Build.BuildNumber)
+
+# Start the application
+ENTRYPOINT ["dotnet", "WebGoatCore.dll"]
