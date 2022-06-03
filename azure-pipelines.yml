@@ -40,8 +40,7 @@ stages:
       inputs:
         command: run
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
-        tags: |
-          webgoatdotnetcorewcontrast
+        arguments: 'webgoatdotnetcorewcontrast'
 - stage: Verify
   jobs:
   - job: Verify
