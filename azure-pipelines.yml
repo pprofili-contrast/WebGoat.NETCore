@@ -26,7 +26,22 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
         tags: |
-          $(tag)
+          webgoatdotnetcorewcontrast
+- stage: Run
+  displayName: Run container
+  jobs:
+  - job: Run
+    displayName: Run
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Run a container
+      inputs:
+        command: run
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
+        tags: |
+          webgoatdotnetcorewcontrast
 - stage: Verify
   jobs:
   - job: Verify
