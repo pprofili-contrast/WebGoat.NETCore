@@ -12,16 +12,16 @@ stages:
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 - stage: Build
-  displayName: Build image
+  displayName: Build image and run container
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build and run
     pool:
       vmImage: ubuntu-latest
     steps:
     - script: 
-        docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t $(dockerId)/dotnetcore-build:$BUILD_BUILDID .
-        docker run --name webgoatdotnetcorewcontrast --rm -d $(dockerId)/dotnetcore-build:$BUILD_BUILDID
+        docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t dotnetcore-build:$BUILD_BUILDID .
+        docker run --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID
         docker stop webgoatdotnetcorewcontrast
 #    - task: Docker@2
 #      displayName: Build
@@ -40,20 +40,20 @@ stages:
 #        containerRegistry: 'Phil Docker Hub'
 #        repository: 'webgoatdotnetcorewcontrast:latest'
 #        command: 'push'
-- stage: Run
-  displayName: Run container
-  jobs:
-  - job: Run
-    displayName: Run
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Run a container
-      inputs:
-        command: start
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
-        arguments: 'webgoatdotnetcorewcontrast'
+#- stage: Run
+#  displayName: Run container
+#  jobs:
+#  - job: Run
+#    displayName: Run
+#    pool:
+#      vmImage: ubuntu-latest
+#    steps:
+#    - task: Docker@2
+#      displayName: Run a container
+#      inputs:
+#        command: start
+#        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
+#        arguments: 'webgoatdotnetcorewcontrast'
 - stage: Verify
   jobs:
   - job: Verify
