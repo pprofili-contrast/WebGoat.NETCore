@@ -26,6 +26,7 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile.contrast'
         arguments: '-t webgoatdotnetcorewcontrast'
     - task: Docker@2
+      displayName: Login
       inputs:
         containerRegistry: 'Phil Docker Hub'
         command: 'login'
