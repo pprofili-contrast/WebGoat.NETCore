@@ -5,6 +5,8 @@ resources:
 - repo: self
 
 variables:
+- name: CONTAINER_ADDRESS
+  value: localhost
   tag: '$(Build.BuildId)'
 
 stages:
