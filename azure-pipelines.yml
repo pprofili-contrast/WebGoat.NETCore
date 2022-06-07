@@ -18,7 +18,7 @@ stages:
         docker run -p 8181:80 --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID    
         CONTAINER_ADDRESS=$(docker container inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' webgoatdotnetcorewcontrast)
         echo ip is $CONTAINER_ADDRESS
-        curl -v http://$(CONTAINER_ADDRESS):8181
+        curl -v http://172.17.0.2:8181
 #    - script: 
 #        docker stop webgoatdotnetcorewcontrast
 #    - task: Docker@2
