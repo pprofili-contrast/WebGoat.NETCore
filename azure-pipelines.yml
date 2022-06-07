@@ -22,9 +22,9 @@ stages:
     - script: 
         docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t dotnetcore-build:$BUILD_BUILDID .
     - script: 
-        docker run --name webgoatdotnetcorewcontrst --rm -d dotnetcore-build:$BUILD_BUILDID
-    - script: 
-        docker stop webgoatdotnetcorewcontrast
+        docker run --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID
+#    - script: 
+#        docker stop webgoatdotnetcorewcontrast
 #    - task: Docker@2
 #      displayName: Build
 #      inputs:
