@@ -19,7 +19,7 @@ stages:
     - script: |
         docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t dotnetcore-build:$BUILD_BUILDID .
         docker run -p 8181:80 --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID    
-        CONTAINER_ADDRESS=$(docker container inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' webgoatdotnetcorewcontrast)
+        CONTAINER_ADDRESS=($(docker container inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' webgoatdotnetcorewcontrast))
         echo ip is $(CONTAINER_ADDRESS)
     - script: 
         curl -v http://$(CONTAINER_ADDRESS):8181
