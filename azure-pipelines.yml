@@ -8,9 +8,6 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 - stage: Build
   displayName: Build image and run container
   jobs:
