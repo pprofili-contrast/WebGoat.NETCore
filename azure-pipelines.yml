@@ -16,7 +16,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - script: 
+    - script: |
         docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t dotnetcore-build:$BUILD_BUILDID .
         docker run -p 8181:80 --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID    
         docker container inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' webgoatdotnetcorewcontrast
