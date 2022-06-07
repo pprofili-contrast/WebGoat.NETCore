@@ -19,9 +19,9 @@ stages:
     - script: 
         docker build -f $(Build.SourcesDirectory)/Dockerfile.contrast -t dotnetcore-build:$BUILD_BUILDID .
     - script: 
-        docker run --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID    
+        docker run -p 8181:80 --name webgoatdotnetcorewcontrast --rm -d dotnetcore-build:$BUILD_BUILDID    
     - script: 
-        curl -v http://localhost
+        curl -v http://localhost:8181
 #    - script: 
 #        docker stop webgoatdotnetcorewcontrast
 #    - task: Docker@2
