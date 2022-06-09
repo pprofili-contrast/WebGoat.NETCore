@@ -27,12 +27,12 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-- task: ContrastIntegration@2
-  inputs:
-    ContrastService: 'Contrast AppTwo'
-    Application: '53c9d540-2cee-40a0-8a57-0552f8b917de'
-    CriticalLimit: '0'
-    HighLimit: '0'
-    MediumLimit: '0'
-    LowLimit: '0'
-    NoteLimit: '0'
+    - task: ContrastIntegration@2
+      inputs:
+        ContrastService: 'Contrast AppTwo'
+        Application: '53c9d540-2cee-40a0-8a57-0552f8b917de'
+        CriticalLimit: '0'
+        HighLimit: '0'
+        MediumLimit: '0'
+        LowLimit: '0'
+        NoteLimit: '0'
